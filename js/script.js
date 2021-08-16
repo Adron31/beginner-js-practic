@@ -1,4 +1,4 @@
-/*
+
 //js-1
 let myNumber = 0;
 let MyNumber = 1;
@@ -47,7 +47,7 @@ array.forEach(function (elem, i) {
 		alert(elem);
 	}
 });
-*/
+
 //js-7
 let weight = 5.6;
 let recomendation = '';
@@ -115,3 +115,129 @@ function hexToDec (value) {
 	return parseInt(value, 16);
 }
 console.log(hexToDec('-C'));
+
+//js-14
+function removeExclamationMarks (str, n) {
+	let arr = str.split('');
+	let index = 0;
+	while (n != 0) {
+		index = arr.indexOf('!', 0);
+		if (index + 1) {
+			arr.splice(index, 1);
+			--n;
+		} else {
+			n = 0;
+		}
+	}
+	return str = arr.join('');
+}
+console.log(removeExclamationMarks("!!!Hi !!hi!!! !hi", 0));
+
+//js-15
+function maxDiff (arr) {
+	if (arr.length > 1) {
+		arr.sort((a, b) => a - b);
+		console.log(arr);
+		return arr[arr.length - 1] - arr[0];
+	} else {
+		return 0;
+	}
+}
+console.log(maxDiff([0, 1, 2, 3, 4, 5, 16]));
+
+//js-16
+function sentenceToWords (str, n) {
+	str = str.replace(/[.,?:;!""/-]/g, '');
+	let arr = str.split(' ');
+	return arr.filter(elem => elem.length > n);
+}
+console.log(sentenceToWords('Над городом облака, коридоры, берега, проспект, река.', 7));
+
+//js-17
+function divisibleByThree (str) {
+	const arr = str.split('');
+	const sum = arr.reduce((sum, current) => sum + +current, 0);
+	if (sum % 3 === 0) {
+		return true;
+	} else {
+		return false;
+	}
+}
+console.log(divisibleByThree('88'));
+
+//js-18
+function spacey (arr) {
+	let newArr = [];
+	let i = arr.length;
+	while (i--) {
+		newArr[i] = arr.reduceRight((result, current) => current + result, '');
+		arr.pop();
+	}
+	return newArr;
+}
+
+function spacey2 (arr) {
+	return arr.map((elem, i) => {
+		do {
+			if (i === 0) {
+				return elem;
+			} else {
+				elem = arr[i - 1] + elem;
+			}
+		} while (i--);
+	});
+}
+
+function spacey3 (arr) {
+	for (let i = arr.length - 1; i; i--) {
+		arr[i] = unite(arr, i);
+	}
+	return arr;
+}
+function unite (arr, i) {
+	if (i === 0) {
+		return arr[i];
+	} else {
+		return unite(arr, i - 1) + arr[i];
+	}
+}
+
+console.log(spacey(['this', 'cheese', 'has', 'no', 'holes']));
+console.log(spacey2(['kevin', 'has', 'no', 'space']));
+console.log(spacey3(['this', 'cheese', 'has', 'no', 'holes']));
+
+//js-19
+function evensAndOdds (number) {
+	if (number % 2 === 0) {
+		return number.toString(2);
+	} else {
+		return number.toString(16);
+	}
+}
+console.log(evensAndOdds(13));
+
+//js-20
+function arrayToObject (arr) {
+	let obj = {};
+	let dataTypes = [];
+
+	arr.forEach(elem => {
+		if (!dataTypes.includes(typeof (elem), 0)) {
+			dataTypes.push(typeof (elem));
+		}
+	});
+
+	for (const dataType of dataTypes) {
+		obj[dataType] = arr.filter((elem) => typeof (elem) === dataType);
+	}
+	return obj;
+}
+
+console.log(arrayToObject(['a', 1, 2, false, 'b']));
+
+//js-21
+function replaceAB (str) {
+	return str.replace(/a/g, 'd').replace(/b/g, 'a').replace(/d/g, 'b');
+}
+
+console.log(replaceAB('aabacbaa'));
